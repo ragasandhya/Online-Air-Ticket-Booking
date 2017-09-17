@@ -1,0 +1,10 @@
+package com.capgemini.flightapplication.dao;
+
+import org.springframework.stereotype.Component;
+
+
+@Component
+public interface IFlightDAO
+{
+	public int adminLogin(String username,String password);
+}

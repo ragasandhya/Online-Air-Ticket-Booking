@@ -1,0 +1,70 @@
+package com.capgemini.flightapplication.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.capgemini.flightapplication.dto.AdminDTO;
+import com.capgemini.flightapplication.service.FlightImplService;
+import com.capgemini.flightapplication.service.IFlightService;
+
+@Controller
+public class FlightTransactionController 
+{
+	@Autowired
+	IFlightService serviceObj;
+	
+	
+	@RequestMapping(value="customerLogin.obj")
+	String getCustomerLoginPage()
+	{
+		return "customerLogin";
+	}
+	
+	@RequestMapping(value="registration.obj")
+	String getAdminLoginPage()
+	{
+		return "registration";
+	}
+	
+	@RequestMapping(value="adminLogin.obj")
+	String getRegistrationPage()
+	{
+		return "adminLogin";
+	}
+	
+	@RequestMapping(value="signUp.obj")
+	String getSingUpPage()
+	{
+		return "signUp";
+	}
+	@RequestMapping(value="Add adminLogin.obj", method=RequestMethod.POST)
+	ModelAndView getAdminHomePage(@ModelAttribute("login")AdminDTO admin)	
+	{
+		String adminUserName=admin.getAdminUserName();
+		String adminPassword=admin.getAdminPassword();
+		System.out.println(adminUserName);
+		System.out.println(adminPassword);
+		
+		int count=serviceObj.adminLogin(adminUserName,adminPassword);
+		
+		if(count>0)
+		{
+		ModelAndView model=new ModelAndView();		  
+		model.setViewName("adminHome");
+		return model;
+		}
+		else
+		{
+			ModelAndView model=new ModelAndView();		
+			model.getModelMap().addAttribute("erromsg", "Username and Password is incorrect");
+			model.setViewName("adminLogin");
+			return model;
+		}
+						
+	}
+	
+}

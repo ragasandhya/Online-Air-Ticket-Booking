@@ -1,0 +1,22 @@
+package com.capgemini.flightapplication.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.capgemini.flightapplication.dao.IFlightDAO;
+import com.capgemini.flightapplication.exception.FlightTransactionException;
+
+@Component
+public class FlightImplService implements IFlightService
+{
+	@Autowired
+	IFlightDAO flightdao;
+
+	
+	public int adminLogin(String username, String password)
+	{
+		int count=flightdao.adminLogin(username, password);		
+		return count;
+	}
+
+}

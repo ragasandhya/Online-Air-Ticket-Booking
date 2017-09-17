@@ -1,0 +1,11 @@
+package com.capgemini.flightapplication.service;
+
+import org.springframework.stereotype.Component;
+
+
+@Component
+public interface IFlightService
+{
+	public int adminLogin(String username,String password);
+
+}
